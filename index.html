@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraná: Supermercado do Mundo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-institucional: #008a3b;
+            --verde-escuro: #006b2d;
+            --azul-institucional: #12355a;
+            --azul-claro: #0067b0;
+            --azul-medio: #1a4871;
+            --branco: #ffffff;
+            --cinza-claro: #f8f9fa;
+            --cinza-medio: #6c757d;
+            --cinza-escuro: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--azul-institucional) 0%, var(--azul-medio) 50%, var(--azul-claro) 100%);
+            overflow-x: hidden;
+            color: var(--cinza-escuro);
+        }
+
+        .presentation-container {
+            position: relative;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-1 {
+            background: linear-gradient(rgba(18, 53, 90, 0.8), rgba(0, 103, 176, 0.8)), 
+                        url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            text-align: center;
+        }
+
+        .slide-2, .slide-4, .slide-6, .slide-8, .slide-10 {
+            background: var(--branco);
+            color: var(--azul-institucional);
+        }
+
+        .slide-3, .slide-5, .slide-7, .slide-9, .slide-11 {
+            background: linear-gradient(rgba(0, 138, 59, 0.9), rgba(0, 107, 45, 0.9)), 
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+        }
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            line-height: 0.9;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+            text-align: center;
+        }
+
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .pitch-box {
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            max-width: 1000px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .slide-2 .pitch-box, .slide-4 .pitch-box, .slide-6 .pitch-box, .slide-8 .pitch-box, .slide-10 .pitch-box {
+            background: var(--cinza-claro);
+            color: var(--azul-institucional);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--verde-institucional);
+        }
+
+        .slide-2 .stat-card, .slide-4 .stat-card, .slide-6 .stat-card, .slide-8 .stat-card, .slide-10 .stat-card {
+            background: var(--cinza-claro);
+            border-left: 4px solid var(--azul-claro);
+        }
+
+        .stat-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            color: var(--verde-institucional);
+            display: block;
+            line-height: 1;
+        }
+
+        .slide-2 .stat-number, .slide-4 .stat-number, .slide-6 .stat-number, .slide-8 .stat-number, .slide-10 .stat-number {
+            color: var(--azul-claro);
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+
+        .cooperatives-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .coop-item {
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--verde-institucional);
+            transform: translateX(-30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .slide-2 .coop-item, .slide-4 .coop-item, .slide-6 .coop-item, .slide-8 .coop-item, .slide-10 .coop-item {
+            background: var(--cinza-claro);
+            border-left: 4px solid var(--azul-claro);
+        }
+
+        .coop-item.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .coop-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--verde-institucional);
+            margin-bottom: 0.8rem;
+        }
+
+        .slide-2 .coop-name, .slide-4 .coop-name, .slide-6 .coop-name, .slide-8 .coop-name, .slide-10 .coop-name {
+            color: var(--azul-claro);
+        }
+
+        .coop-description {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .structure-block {
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            padding: 1.8rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--verde-institucional);
+        }
+
+        .slide-2 .structure-block, .slide-4 .structure-block, .slide-6 .structure-block, .slide-8 .structure-block, .slide-10 .structure-block {
+            background: var(--cinza-claro);
+            border-top: 4px solid var(--azul-claro);
+        }
+
+        .block-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--verde-institucional);
+            margin-bottom: 0.8rem;
+        }
+
+        .slide-2 .block-title, .slide-4 .block-title, .slide-6 .block-title, .slide-8 .block-title, .slide-10 .block-title {
+            color: var(--azul-claro);
+        }
+
+        .block-content {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .objective-card {
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-top: 4px solid var(--verde-institucional);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.6s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .slide-2 .objective-card, .slide-4 .objective-card, .slide-6 .objective-card, .slide-8 .objective-card, .slide-10 .objective-card {
+            background: var(--cinza-claro);
+            border-top: 4px solid var(--azul-claro);
+        }
+
+        .objective-card.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .objective-card h3 {
+            color: var(--verde-institucional);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide-2 .objective-card h3, .slide-4 .objective-card h3, .slide-6 .objective-card h3, .slide-8 .objective-card h3, .slide-10 .objective-card h3 {
+            color: var(--azul-claro);
+        }
+
+        .objective-card p {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: var(--verde-institucional);
+            border: none;
+            color: var(--branco);
+            padding: 15px 25px;
+            margin: 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,138,59,0.3);
+        }
+
+        .nav-btn:hover {
+            background: var(--verde-escuro);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,138,59,0.4);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--verde-institucional), var(--azul-claro));
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .quote {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.6rem;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.95);
+            color: var(--azul-institucional);
+            border-radius: 12px;
+            border-left: 4px solid var(--verde-institucional);
+            max-width: 900px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .slide-2 .quote, .slide-4 .quote, .slide-6 .quote, .slide-8 .quote, .slide-10 .quote {
+            background: var(--cinza-claro);
+            border-left: 4px solid var(--azul-claro);
+        }
+
+        .logo-area {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .visual-block {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .visual-block.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .block-image {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .block-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .block-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .grid-image {
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .grid-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-icon {
+            position: absolute;
+            opacity: 0.1;
+            color: var(--branco);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(120deg); }
+            66% { transform: translateY(-8px) rotate(240deg); }
+        }
+
+        .slide-header {
+            background: var(--azul-institucional);
+            color: var(--branco);
+            padding: 1rem 0;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.6rem; }
+            .subtitle { font-size: 1.4rem; }
+            .pitch-box, .structure-block { padding: 2rem; }
+            .stats-grid, .cooperatives-list, .objectives-grid { 
+                grid-template-columns: 1fr;
+                margin: 2rem 0;
+            }
+            .slide { padding: 2rem 1rem; }
+            .navigation { bottom: 20px; right: 20px; }
+            .nav-btn { padding: 12px 20px; font-size: 0.9rem; }
+            .visual-block, .visual-block.reverse {
+                flex-direction: column;
+                margin: 1rem 0;
+            }
+            .block-image {
+                height: 150px;
+                max-width: 100%;
+            }
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.8rem; }
+            .subtitle { font-size: 1.2rem; }
+            .quote { font-size: 1.3rem; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation-container" id="container">
+        <!-- Slide 1: Título Principal -->
+        <div class="slide slide-1 visible" id="slide1">
+            <div class="slide-header">SECRETARIA DE COMUNICAÇÃO · GOVERNO DO PARANÁ</div>
+            <h1>PARANÁ</h1>
+            <div class="subtitle">SUPERMERCADO DO MUNDO</div>
+            <div class="pitch-box">
+                <p style="font-size: 1.4rem; line-height: 1.6; font-weight: 400;">
+                    O Paraná não é apenas um estado produtor. É uma <strong style="font-weight: 700;">potência global</strong> que alimenta o Brasil e o mundo. Um celeiro fértil de trabalho, tecnologia e cooperação.
+                </p>
+            </div>
+            <div class="logo-area">DOCUMENTÁRIO E-PARANÁ</div>
+        </div>
+
+        <!-- Slide 2: Liderança Comprovada -->
+        <div class="slide slide-2" id="slide2">
+            <h2>PARANÁ: LIDERANÇA COMPROVADA</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">1°</span>
+                    <div class="stat-label">Estado que mais produz alimentos no Brasil</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1°</span>
+                    <div class="stat-label">Líder nacional em produção de orgânicos</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1°</span>
+                    <div class="stat-label">Estado mais sustentável do Brasil</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">350+</span>
+                    <div class="stat-label">Produtos comercializados</div>
+                </div>
+            </div>
+            
+            <div class="hero-image" style="height: 180px; margin: 1.5rem 0;">
+                <img src="https://www.aen.pr.gov.br/sites/default/arquivos_restritos/files/imagem/2023-11/parana_agro.png?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Agricultura moderna no Paraná">
+            </div>
+            
+            <div class="quote" style="margin: 1.5rem 0; padding: 1.5rem;">
+                "O Paraná é um estado de terra fértil, cultivado com as sementes da responsabilidade"
+            </div>
+        </div>
+
+        <!-- Slide 3: Sustentabilidade -->
+        <div class="slide slide-3" id="slide3">
+            <h2>SUSTENTABILIDADE EM DESTAQUE</h2>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h3>🌳 Conservação Ambiental</h3>
+                    <p>Estado que mais reduziu o desmatamento, plantando milhões de mudas de árvores nativas</p>
+                </div>
+                <div class="objective-card">
+                    <h3>💧 Cuidado com Recursos</h3>
+                    <p>Conservação do solo e cuidado com nascentes de água</p>
+                </div>
+                <div class="objective-card">
+                    <h3>⚡ Energia Renovável</h3>
+                    <p>Uso de energias renováveis na produção agrícola</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🔄 Integração Sustentável</h3>
+                    <p>Programas de integração lavoura, pecuária e floresta</p>
+                </div>
+            </div>
+            <div class="quote">
+                "Plantamos consciência, cultivamos oportunidades"
+            </div>
+        </div>
+
+        <!-- Slide 4: Objetivos -->
+        <div class="slide slide-4" id="slide4">
+            <h2>OBJETIVOS DO DOCUMENTÁRIO</h2>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h3>🎯 Reforçar Imagem</h3>
+                    <p>Posicionar o Paraná como referência mundial na produção e exportação de alimentos</p>
+                </div>
+                <div class="objective-card">
+                    <h3>👨‍🌾 Valorizar o Campo</h3>
+                    <p>Destacar o trabalho das cooperativas e da indústria agroalimentar</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🌍 Conexão Global</h3>
+                    <p>Estabelecer ligação com público urbano e internacional</p>
+                </div>
+                <div class="objective-card">
+                    <h3>💡 Mostrar Inovação</h3>
+                    <p>Apresentar o impacto da gestão pública, universidades e tecnologia</p>
+                </div>
+            </div>
+            <div class="quote">
+                "Porque produzir muito sem agredir o meio ambiente é o que nos faz ser o supermercado do mundo"
+            </div>
+        </div>
+
+        <!-- Slide 5: Cooperativas Protagonistas -->
+        <div class="slide slide-5" id="slide5">
+            <h2>COOPERATIVAS PROTAGONISTAS</h2>
+            <div class="cooperatives-list">
+                <div class="coop-item">
+                    <div class="coop-name">COAMO (Campo Mourão)</div>
+                    <div class="coop-description">Maior cooperativa agrícola da América Latina</div>
+                </div>
+                <div class="coop-item">
+                    <div class="coop-name">FRIMESA (Medianeira)</div>
+                    <div class="coop-description">Foco em proteína animal</div>
+                </div>
+                <div class="coop-item">
+                    <div class="coop-name">CASTROLANDA (Castro)</div>
+                    <div class="coop-description">Referência em leite e produção holandesa</div>
+                </div>
+                <div class="coop-item">
+                    <div class="coop-name">COPACOL (Cafelândia)</div>
+                    <div class="coop-description">Um dos maiores frigoríficos de frango do Brasil</div>
+                </div>
+                <div class="coop-item">
+                    <div class="coop-name">C.VALE (Palotina)</div>
+                    <div class="coop-description">Forte atuação em grãos e industrialização</div>
+                </div>
+                <div class="coop-item">
+                    <div class="coop-name">AGRÁRIA (Guarapuava)</div>
+                    <div class="coop-description">Fundada por descendentes de suábios do Danúbio</div>
+                </div>
+            </div>
+            <div class="quote">
+                "Com destaque para grãos, peixes, frangos e suínos"
+            </div>
+        </div>
+
+        <!-- Slide 6: Destaques Estratégicos -->
+        <div class="slide slide-6" id="slide6">
+            <h2>DESTAQUES ESTRATÉGICOS</h2>
+            
+            <div class="image-grid">
+                <div class="grid-image">
+                    <img src="https://blog.humberseguros.com.br/wp-content/uploads/2024/01/mulheres-no-agro.jpeg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mulheres no agronegócio">
+                    <div class="image-caption">Mulheres no Agro</div>
+                </div>
+                <div class="grid-image">
+                    <img src="https://nomercado.com.br/wp-content/uploads/2024/06/imagem_2024-06-20_100835395.png?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tecnologia no campo">
+                    <div class="image-caption">AgTechs & Inovação</div>
+                </div>
+                <div class="grid-image">
+                    <img src="https://pensaragro.com.br/wp-content/uploads/2024/12/agroindustria.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Indústria alimentícia">
+                    <div class="image-caption">Indústria Global</div>
+                </div>
+                <div class="grid-image">
+                    <img src="https://www.portosdoparana.pr.gov.br/sites/portos/arquivos_restritos/files/imagem/2024-04/fimi0002_copiar_2.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Porto de Paranaguá">
+                    <div class="image-caption">Porto de Paranaguá</div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span style="font-size: 3rem;">👩‍🌾</span>
+                    <div class="stat-label">Mulheres no Agro</div>
+                    <div style="margin-top: 1rem; font-size: 0.95rem; font-weight: 400;">Programas de liderança feminina nas cooperativas</div>
+                </div>
+                <div class="stat-card">
+                    <span style="font-size: 3rem;">🚀</span>
+                    <div class="stat-label">AgTechs & Inovação</div>
+                    <div style="margin-top: 1rem; font-size: 0.95rem; font-weight: 400;">Startups como Agrobee, Bart Digital e Seedz</div>
+                </div>
+                <div class="stat-card">
+                    <span style="font-size: 3rem;">🏭</span>
+                    <div class="stat-label">Indústria Global</div>
+                    <div style="margin-top: 1rem; font-size: 0.95rem; font-weight: 400;">BRF, Frimesa, C.Vale exportam para dezenas de países</div>
+                </div>
+                <div class="stat-card">
+                    <span style="font-size: 3rem;">🚢</span>
+                    <div class="stat-label">Porto de Paranaguá</div>
+                    <div style="margin-top: 1rem; font-size: 0.95rem; font-weight: 400;">Maior escoadouro de grãos e carnes do Brasil</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Estrutura do Roteiro -->
+        <div class="slide slide-7" id="slide7">
+            <h2>ESTRUTURA DO DOCUMENTÁRIO</h2>
+            
+            <div class="visual-block">
+                <div class="block-image">
+                    <img src="https://www.aen.pr.gov.br/sites/default/arquivos_restritos/files/imagem/migrados/galeria/64944/JAJA5726_cpia.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vista aérea campos do Paraná">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 1: O Paraná que alimenta o mundo</div>
+                        <div class="block-content">
+                            Abertura impactante com imagens aéreas, estabelecendo o Paraná como potência global do agro
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-block reverse">
+                <div class="block-image">
+                    <img src="https://www.aen.pr.gov.br/sites/default/arquivos_restritos/files/imagem/2024-07/capa.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Família de produtores rurais">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 2: Do chão da roça ao mercado global</div>
+                        <div class="block-content">
+                            O elo humano - famílias produtoras e a conexão entre produção local e impacto internacional
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-block">
+                <div class="block-image">
+                    <img src="https://networdagro.com.br/blog/wp-content/uploads/2021/09/agricultura-de-precisao-e-uso-de-drones.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Drone sobrevoando plantação">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 3: Tecnologia e juventude no campo</div>
+                        <div class="block-content">
+                            O futuro do agro: drones, monitoramento por satélite, startups AgTech paranaenses
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide slide-8" id="slide8">
+            <h2>ESTRUTURA DO DOCUMENTÁRIO</h2>
+            
+            <div class="visual-block">
+                <div class="block-image">
+                    <img src="https://psd.org.br/wp-content/uploads/2024/11/Ratinho-Junior-na-abertura-do-encontro-de-cooperativas-Foto-Gabriel-Rosa-AEN-scaled.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cooperativa agrícola">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 4: O protagonismo das cooperativas</div>
+                        <div class="block-content">
+                            O modelo cooperativista paranaense - cooperação, desenvolvimento local e inovação
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-block reverse">
+                <div class="block-image">
+                    <img src="https://www.aen.pr.gov.br/sites/default/arquivos_restritos/files/imagem/2022-01/embarquesoja_claudioneves_portos_do_parana_2021_2_0.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Indústria processamento alimentos">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 5: Indústria e exportação</div>
+                        <div class="block-content">
+                            Como o produto bruto ganha valor agregado e alcança mercados internacionais
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-block">
+                <div class="block-image">
+                    <img src="https://comexdobrasil.com/wp-content/uploads/2025/01/gado_no_pasto-41.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Porto com navios carregando grãos">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 6: Porto de Paranaguá - porta para o mundo</div>
+                        <div class="block-content">
+                            A logística como diferencial competitivo e infraestrutura estratégica
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide slide-9" id="slide9">
+            <h2>ESTRUTURA DO DOCUMENTÁRIO</h2>
+            
+            <div class="visual-block">
+                <div class="block-image">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Energia solar no campo">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 7: Sustentabilidade e gestão pública</div>
+                        <div class="block-content">
+                            Produção responsável, energia limpa e apoio de políticas públicas (RenovaPR, Trator Solidário)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-block reverse">
+                <div class="block-image">
+                    <img src="https://www.idrparana.pr.gov.br/sites/iapar/arquivos_restritos/files/video/images/2023-11/governo0190_rt_3x2.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pôr do sol no campo">
+                </div>
+                <div class="block-text">
+                    <div class="structure-block">
+                        <div class="block-title">Bloco 8: Conclusão - Orgulho de alimentar o mundo</div>
+                        <div class="block-content">
+                            Encerramento emocional reafirmando o conceito de "supermercado do mundo"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote">
+                "Hoje, colhemos os frutos do estado mais sustentável do Brasil"
+            </div>
+        </div>
+
+        <!-- Slide 10: Personagens -->
+        <div class="slide slide-10" id="slide10">
+            <h2>PERSONAGENS CENTRAIS</h2>
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <h3>👨‍🌾 Produtores Rurais</h3>
+                    <p>Pequenos produtores familiares e grandes produtores de grãos das regiões de Cascavel e Toledo</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🚀 Jovens Inovadores</h3>
+                    <p>Empreendedores de AgTechs incubadas na UTFPR, UEM e Biopark Toledo</p>
+                </div>
+                <div class="objective-card">
+                    <h3>👩‍💼 Liderança Feminina</h3>
+                    <p>Diretoras de programas femininos em cooperativas como Castrolanda e Frísia</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🏢 Dirigentes Cooperativistas</h3>
+                    <p>Presidentes de Coamo, Agrária, Copacol, Lar e Frimesa</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🏛️ Gestão Pública</h3>
+                    <p>Técnicos da SEAB, IDR-Paraná, InvestParaná e APPA</p>
+                </div>
+                <div class="objective-card">
+                    <h3>🌱 Sustentabilidade</h3>
+                    <p>Produtores do RenovaPR e especialistas em energia solar integrada</p>
+                </div>
+            </div>
+            <div class="quote">
+                "Conservação, cuidado e uso consciente das energias renováveis"
+            </div>
+        </div>
+
+        <!-- Slide 11: Call to Action -->
+        <div class="slide slide-11" id="slide11">
+            <h1>É HORA DO MUNDO CONHECER</h1>
+            <div class="subtitle">O QUE O PARANÁ ENTREGA</div>
+            <div class="pitch-box">
+                <h3 style="color: var(--verde-institucional); margin-bottom: 1.5rem; font-weight: 700;">UMA PRODUÇÃO QUE:</h3>
+                <div style="font-size: 1.4rem; line-height: 1.8; font-weight: 400;">
+                    ✨ <strong style="font-weight: 700;">EMOCIONA</strong> com histórias reais<br>
+                    📊 <strong style="font-weight: 700;">INFORMA</strong> com dados estratégicos<br>
+                    🎙️ <strong style="font-weight: 700;">DÁ VOZ</strong> aos protagonistas do campo<br>
+                    🌍 <strong style="font-weight: 700;">CONECTA</strong> o Paraná ao mundo
+                </div>
+            </div>
+            <div style="margin-top: 3rem; font-size: 1.5rem; font-weight: 600; text-align: center;">
+                🎬 DOCUMENTÁRIO "PARANÁ: SUPERMERCADO DO MUNDO"<br>
+                📺 UMA PRODUÇÃO E-PARANÁ
+            </div>
+            <div class="quote">
+                "Paraná, terra de gente que trabalha e cuida"
+            </div>
+            <div class="logo-area">GOVERNO DO PARANÁ · 2025</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">←</button>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('visible'));
+            
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            
+            slides[currentSlide].classList.add('visible');
+            slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+            
+            updateProgressBar();
+            animateElements();
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function animateElements() {
+            const currentSlideElement = slides[currentSlide];
+            
+            setTimeout(() => {
+                const statCards = currentSlideElement.querySelectorAll('.stat-card');
+                statCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate');
+                    }, index * 200);
+                });
+
+                const coopItems = currentSlideElement.querySelectorAll('.coop-item');
+                coopItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, index * 150);
+                });
+
+                const objectiveCards = currentSlideElement.querySelectorAll('.objective-card');
+                objectiveCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate');
+                    }, index * 200);
+                });
+            }, 300);
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Navegação por scroll
+        let isScrolling = false;
+        document.addEventListener('wheel', function(e) {
+            if (isScrolling) return;
+            
+            isScrolling = true;
+            setTimeout(() => { isScrolling = false; }, 1000);
+            
+            if (e.deltaY > 0) {
+                nextSlide();
+            } else {
+                previousSlide();
+            }
+        });
+
+        // Inicializar
+        updateProgressBar();
+        animateElements();
+    </script>
+</body>
+</html>
