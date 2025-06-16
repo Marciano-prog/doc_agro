@@ -334,7 +334,7 @@
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 16px rgba(0,138,59,0.3);
         }
@@ -914,8 +914,8 @@
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" onclick="previousSlide()">←</button>
-        <button class="nav-btn" onclick="nextSlide()">→</button>
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">↑</button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">↓</button>
     </div>
 
     <script>
@@ -928,27 +928,55 @@
             document.getElementById('progressBar').style.width = progress + '%';
         }
 
-        function showSlide(n) {
+       function showSlide(n) {
             slides.forEach(slide => slide.classList.remove('visible'));
             
-            if (n >= totalSlides) currentSlide = 0;
-            if (n < 0) currentSlide = totalSlides - 1;
+            if (n >= totalSlides) currentSlide = totalSlides - 1;
+            if (n < 0) currentSlide = 0;
             
             slides[currentSlide].classList.add('visible');
             slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
             
             updateProgressBar();
+            updateNavigationButtons();
             animateElements();
         }
 
+           function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Esconder botão "anterior" no primeiro slide
+            if (currentSlide === 0) {
+                prevBtn.style.opacity = '0.3';
+                prevBtn.style.pointerEvents = 'none';
+            } else {
+                prevBtn.style.opacity = '1';
+                prevBtn.style.pointerEvents = 'auto';
+            }
+            
+            // Esconder botão "próximo" no último slide
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.style.opacity = '0.3';
+                nextBtn.style.pointerEvents = 'none';
+            } else {
+                nextBtn.style.opacity = '1';
+                nextBtn.style.pointerEvents = 'auto';
+            }
+        }
+
         function nextSlide() {
-            currentSlide++;
-            showSlide(currentSlide);
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
         }
 
         function previousSlide() {
-            currentSlide--;
-            showSlide(currentSlide);
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
         }
 
         function animateElements() {
@@ -980,9 +1008,9 @@
 
         // Navegação por teclado
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
+            if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight') {
                 nextSlide();
-            } else if (e.key === 'ArrowLeft') {
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
                 previousSlide();
             }
         });
